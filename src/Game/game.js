@@ -72,4 +72,18 @@ class Game {
       this.board[y][x++] = letter;
     }
   }
+  checkWord(word) {
+    for (let w of this.words) {
+      if (w === word) {
+        this.numOfFoundWord++;
+        this.checkWin();
+        return true;
+      }
+    }
+    return false;
+  }
+  checkWin() {
+    if (this.numOfFoundWord === 10) return true;
+    return false;
+  }
 }
