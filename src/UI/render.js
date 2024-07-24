@@ -4,6 +4,7 @@ class Render {
   board(msg, boardArray) {
     console.log(boardArray);
     let board = document.querySelector(".board");
+    board.innerText = "";
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
@@ -14,10 +15,16 @@ class Render {
       }
     }
   }
+  loading() {
+    let menu = document.querySelector(".menu");
+    menu.classList.remove("hidden");
+    menu.innerText = "loading";
+  }
 }
 
 let render = new Render();
 
 export function renderInit() {
   PubSub.subscribe("RenderGame", render.board);
+  PubSub.subscribe("Loading", render.loading);
 }

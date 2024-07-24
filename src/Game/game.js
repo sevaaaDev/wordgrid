@@ -11,7 +11,7 @@ export class Game {
   init() {
     getWords().then((res) => {
       this.words = res;
-      // add loading screen while wait fetching
+      PubSub.publish("Loading");
       this.initBoard();
       PubSub.publish("RenderGame", this.board);
     });
