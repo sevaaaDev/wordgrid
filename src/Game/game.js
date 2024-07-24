@@ -106,6 +106,15 @@ export class Game {
       this.board[y][x++] = letter;
     }
   }
+  fillBoard() {
+    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    for (let y of this.board) {
+      for (let x in y) {
+        let randomNum = Math.floor(Math.random() * 25);
+        if (y[x] === null) y[x] = alphabet[randomNum];
+      }
+    }
+  }
   checkWord(msg, word) {
     let index = this.words.indexOf(word);
     if (index === -1) return false;
