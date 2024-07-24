@@ -18,8 +18,11 @@ export class Game {
   }
 
   initBoard() {
+    let i = 0;
     for (let word of this.words) {
-      this.placeWord(word, "diagonal");
+      let directions = ["vertical", "diagonal", "horizontal"];
+      this.placeWord(word, directions[i++]);
+      if (i > 3) i = 0;
     }
   }
 
@@ -66,7 +69,7 @@ export class Game {
         if (direction === "diagonal") {
           let inc2 = y - i;
           if (inc2 < 0 || this.board[inc2][inc] !== null) {
-            direction = "horizontal";
+            direction = "vertical";
             continue main;
           }
           continue placing;
@@ -74,13 +77,13 @@ export class Game {
         if (direction === "vertical") {
           inc = y - i;
           if (inc < 0 || this.board[inc][x] !== null) {
-            direction = "diagonal";
+            direction = "horizontal";
             continue main;
           }
           continue placing;
         }
         if (this.board[y][inc] !== null) {
-          direction = "vertical";
+          direction = "diagonal";
           continue main;
         }
       }
