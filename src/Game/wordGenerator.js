@@ -10,16 +10,32 @@ async function fetchWords() {
 
 function sanitizeWords(arrayOfWord) {
   arrayOfWord = arrayOfWord.filter((el) => {
-    if (el.length < 6) return true;
+    if (el.length < 7) return true;
     return false;
   });
   console.log(arrayOfWord);
   return arrayOfWord;
 }
 
+function fetchWordsMock() {
+  return [
+    "over",
+    "Pluto",
+    "ball",
+    "north",
+    "hole",
+    "planet",
+    "globe",
+    "lost",
+    "break",
+    "world",
+  ];
+}
+
 export async function getWords(array = []) {
   if (array.length === 10) return array;
-  let words = await fetchWords();
+  //let words = await fetchWords();
+  let words = fetchWordsMock();
   let sanitizedWords = sanitizeWords(words);
   array = [...array, ...sanitizedWords];
   if (array.length > 10) {
