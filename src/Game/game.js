@@ -1,7 +1,26 @@
-class Game {
+import { getWords } from "./wordGenerator";
+import PubSub from "pubsub-js";
+
+export class Game {
   constructor(words) {
     this.words = words;
     this.board = this.generateBoard();
+    this.numOfFoundWord = 0;
+    this.foundWords = [];
+  }
+  init() {
+    getWords().then((res) => {
+      this.words = res;
+      // add loading screen while wait fetching
+      this.initBoard();
+      PubSub.publish("RenderGame", this.board);
+    });
+  }
+
+  initBoard() {
+    for (let word of this.words) {
+      this.placeWord(word, "horizontal");
+    }
   }
 
   availableCoordinate = this.generateAvailableCoordinate();
@@ -72,18 +91,17 @@ class Game {
       this.board[y][x++] = letter;
     }
   }
-  checkWord(word) {
-    for (let w of this.words) {
-      if (w === word) {
-        this.numOfFoundWord++;
-        this.checkWin();
-        return true;
-      }
-    }
-    return false;
+  checkWord(msg, word) {
+    let index = this.words.indexOf(word);
+    if (index === -1) return false;
+    let foundWord = this.words.splice(index, 1);
+    this.foundWords.push(foundWord);
+    console.log("Found");
+    this.checkWin();
+    return true;
   }
   checkWin() {
-    if (this.numOfFoundWord === 10) return true;
+    if (this.foundWords.length === 10) return true;
     return false;
   }
 }
