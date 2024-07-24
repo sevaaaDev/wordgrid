@@ -6,3 +6,10 @@ export function initInput() {
     PubSub.publish("SendAnswer", inputBox.value);
   });
 }
+
+export function initBtn() {
+  let btn = document.querySelector(".startBtn");
+  btn.addEventListener("click", () => {
+    PubSub.publish("StartGame");
+  });
+}
