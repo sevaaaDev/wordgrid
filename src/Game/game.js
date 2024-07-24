@@ -19,7 +19,7 @@ export class Game {
 
   initBoard() {
     for (let word of this.words) {
-      this.placeWord(word, "horizontal");
+      this.placeWord(word, "diagonal");
     }
   }
 
@@ -63,10 +63,18 @@ export class Game {
 
       placing: for (let i = 0; i < word.length; i++) {
         let inc = i + x;
+        if (direction === "diagonal") {
+          let inc2 = y - i;
+          if (inc2 < 0 || this.board[inc2][inc] !== null) {
+            direction = "horizontal";
+            continue main;
+          }
+          continue placing;
+        }
         if (direction === "vertical") {
           inc = y - i;
           if (inc < 0 || this.board[inc][x] !== null) {
-            direction = "horizontal";
+            direction = "diagonal";
             continue main;
           }
           continue placing;
@@ -84,6 +92,10 @@ export class Game {
     let [x, y, newDirection] = this.getCoordinate(word, direction);
     direction = newDirection;
     for (let letter of word) {
+      if (direction === "diagonal") {
+        this.board[y--][x++] = letter;
+        continue;
+      }
       if (direction === "vertical") {
         this.board[y--][x] = letter;
         continue;
