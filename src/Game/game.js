@@ -116,6 +116,7 @@ export class Game {
     }
   }
   checkWord(msg, word) {
+    word = word.toLowerCase();
     let index = this.words.indexOf(word);
     if (index === -1) return false;
     let foundWord = this.words.splice(index, 1);
