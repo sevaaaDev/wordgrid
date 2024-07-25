@@ -8,8 +8,8 @@ class Render {
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
-        div.classList.add(`x-${x}`);
-        div.classList.add(`y-${y}`);
+        div.setAttribute("data-x", x);
+        div.setAttribute("data-y", y);
         div.innerText = boardArray[y][x];
         board.append(div);
       }
