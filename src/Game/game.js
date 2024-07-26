@@ -115,7 +115,7 @@ export class Game {
       }
     }
   }
-  checkWord(msg, word) {
+  checkWord(msg, { word, initial, final, direction }) {
     word = word.toLowerCase();
     let index = this.words.indexOf(word);
     if (index === -1) return false;
@@ -123,6 +123,8 @@ export class Game {
     this.foundWords.push(foundWord);
     console.log("Found");
     this.checkWin();
+    console.log(initial);
+    PubSub.publish("FoundWord", [initial, final, direction]);
     return true;
   }
   checkWin() {

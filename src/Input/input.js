@@ -16,25 +16,56 @@ export function initSwipeSelect() {
     initialCell.classList.add("selected");
     let selectedWord = "";
     function selectWord(e) {
+      // TODO: add function that remove the prev highlight
       finalCell = e.target;
+      let direction = "";
       if (finalCell.dataset.x === initialCell.dataset.x) {
+        removeHighlight();
+        direction = "vertical";
         selectedWord = highlightSelected(
           initialCell.dataset,
           finalCell.dataset,
-          "vertical",
+          direction,
         );
       }
       if (finalCell.dataset.y === initialCell.dataset.y) {
+        removeHighlight();
+        direction = "horizontal";
         selectedWord = highlightSelected(
           initialCell.dataset,
           finalCell.dataset,
           "horizontal",
         );
       }
-      PubSub.publish("SendAnswer", selectedWord);
+      if (
+        Math.abs(finalCell.dataset.y - initialCell.dataset.y) ===
+        Math.abs(finalCell.dataset.x - initialCell.dataset.x)
+      ) {
+        removeHighlight();
+        direction = "diagonal";
+        selectedWord = highlightSelected(
+          initialCell.dataset,
+          finalCell.dataset,
+          "diagonal",
+        );
+      }
+      PubSub.publish("SendAnswer", {
+        word: selectedWord,
+        initial: initialCell.dataset,
+        final: finalCell.dataset,
+        direction,
+      });
+    }
+    function removeHighlight() {
+      let cells = document.querySelectorAll(".selected");
+      cells.forEach((cell) => {
+        cell.classList.remove("selected");
+      });
     }
     function submitWord() {
       board.removeEventListener("pointerover", selectWord);
+      removeHighlight();
+      // TODO: whats this use for?
       console.log(selectedWord);
       console.log(initialCell);
       console.log(finalCell);
@@ -43,15 +74,22 @@ export function initSwipeSelect() {
     document.addEventListener("pointerup", submitWord, { once: true });
   });
 }
+// TODO: add function that highlight the found word (persist)
 
 function highlightSelected(initialCoord, finalCoord, direction) {
+  // TODO: the code is f-ing ugly
   let s = +initialCoord.y;
   let i = +initialCoord.x;
   let f = +finalCoord.x;
+  let iy, fy;
   if (direction === "vertical") {
     s = +initialCoord.x;
     i = +initialCoord.y;
     f = +finalCoord.y;
+  }
+  if (direction === "diagonal") {
+    iy = +initialCoord.y;
+    fy = +finalCoord.y;
   }
   let selectedWord = "";
   let isLoop = true;
@@ -65,6 +103,14 @@ function highlightSelected(initialCoord, finalCoord, direction) {
     if (direction === "vertical") {
       cell = document.querySelector(`.board div[data-x="${s}"][data-y="${i}"]`);
     }
+    if (direction === "diagonal") {
+      cell = document.querySelector(
+        `.board div[data-x="${i}"][data-y="${iy}"]`,
+      );
+      if (iy < fy) iy++;
+      if (iy > fy) iy--;
+    }
+    // TODO: diagonal
     cell.classList.add("selected");
     selectedWord += cell.innerText;
     if (i < f) i++;
