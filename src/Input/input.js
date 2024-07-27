@@ -16,9 +16,10 @@ export function initSwipeSelect() {
     initialCell.classList.add("selected");
     let selectedWord = "";
     function selectWord(e) {
-      // TODO: add function that remove the prev highlight
+      // TODO: awfuly ugly code
       finalCell = e.target;
       let direction = "";
+      // vertical
       if (finalCell.dataset.x === initialCell.dataset.x) {
         removeHighlight();
         direction = "vertical";
@@ -28,15 +29,17 @@ export function initSwipeSelect() {
           direction,
         );
       }
+      // horizontal
       if (finalCell.dataset.y === initialCell.dataset.y) {
         removeHighlight();
         direction = "horizontal";
         selectedWord = highlightSelected(
           initialCell.dataset,
           finalCell.dataset,
-          "horizontal",
+          direction,
         );
       }
+      // Diagonal
       if (
         Math.abs(finalCell.dataset.y - initialCell.dataset.y) ===
         Math.abs(finalCell.dataset.x - initialCell.dataset.x)
@@ -46,7 +49,7 @@ export function initSwipeSelect() {
         selectedWord = highlightSelected(
           initialCell.dataset,
           finalCell.dataset,
-          "diagonal",
+          direction,
         );
       }
       PubSub.publish("SendAnswer", {
@@ -74,7 +77,6 @@ export function initSwipeSelect() {
     document.addEventListener("pointerup", submitWord, { once: true });
   });
 }
-// TODO: add function that highlight the found word (persist)
 
 function highlightSelected(initialCoord, finalCoord, direction) {
   // TODO: the code is f-ing ugly
