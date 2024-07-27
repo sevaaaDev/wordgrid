@@ -9,9 +9,9 @@ export class Game {
     this.foundWords = [];
   }
   init() {
+    PubSub.publish("Loading");
     getWords().then((res) => {
       this.words = res;
-      PubSub.publish("Loading");
       this.initBoard();
       PubSub.publish("RenderGame", this.board);
     });
@@ -24,6 +24,7 @@ export class Game {
       this.placeWord(word, directions[i++]);
       if (i > 3) i = 0;
     }
+    this.fillBoard();
   }
 
   availableCoordinate = this.generateAvailableCoordinate();

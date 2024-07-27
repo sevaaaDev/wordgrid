@@ -4,7 +4,8 @@ class Render {
   board(msg, boardArray) {
     console.log(boardArray);
     let board = document.querySelector(".board");
-    board.innerText = "";
+    let menu = document.querySelector(".menu");
+    menu.classList.add("hidden");
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
