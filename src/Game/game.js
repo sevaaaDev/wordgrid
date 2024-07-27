@@ -1,6 +1,10 @@
 import { getWords } from "./wordGenerator";
 import PubSub from "pubsub-js";
 
+// TODO: reset feature
+// TODO: timer
+// TODO: word definiton feature
+
 export class Game {
   constructor(words) {
     this.words = words;
@@ -14,6 +18,7 @@ export class Game {
       this.words = res;
       this.initBoard();
       PubSub.publish("RenderGame", this.board);
+      PubSub.publish("RenderList", this.words);
     });
   }
 
@@ -55,6 +60,7 @@ export class Game {
     return Math.floor(Math.random() * 9);
   }
   getCoordinate(word, direction) {
+    // TODO: overlapping word (feat)
     let i = 0;
     main: while (true) {
       if (i > 200)
