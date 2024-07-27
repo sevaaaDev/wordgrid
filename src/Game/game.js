@@ -57,9 +57,10 @@ export class Game {
   getCoordinate(word, direction) {
     let i = 0;
     main: while (true) {
-      if (i > 100)
+      if (i > 200)
         throw new RangeError("Looping too much, please tell the dev");
       // TODO: make it so it wont be possible to exceed 100 loop
+      // FIX: it exceed 100
       i++;
       let x = this.#getRandom();
       let y = this.#getRandom();
@@ -95,6 +96,7 @@ export class Game {
   placeWord(word, direction) {
     let [x, y, newDirection] = this.getCoordinate(word, direction);
     direction = newDirection;
+    // TODO: the word sometime is too close to eachother, maybe add restriction so they need too be a few cell away
     for (let letter of word) {
       if (direction === "diagonal") {
         this.board[y--][x++] = letter;
