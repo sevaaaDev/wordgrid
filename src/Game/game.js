@@ -137,7 +137,10 @@ export class Game {
     return true;
   }
   checkWin() {
-    if (this.foundWords.length === 10) return true;
+    if (this.foundWords.length === 10) {
+      PubSub.publish("RenderWin");
+      return true;
+    }
     return false;
   }
 }

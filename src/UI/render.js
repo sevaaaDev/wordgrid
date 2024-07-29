@@ -18,7 +18,6 @@ class Render {
   }
   loading() {
     let menu = document.querySelector(".menu");
-    //menu.classList.remove("hidden");
     menu.innerText = "loading";
   }
   listOfWords(msg, words) {
@@ -28,6 +27,11 @@ class Render {
       li.innerText = word;
       lsOfWords.append(li);
     }
+  }
+  win() {
+    let menu = document.querySelector(".menu");
+    menu.classList.remove("hidden");
+    menu.innerText = "WIN";
   }
 }
 
@@ -83,5 +87,6 @@ export function renderInit() {
   PubSub.subscribe("RenderGame", render.board);
   PubSub.subscribe("RenderList", render.listOfWords);
   PubSub.subscribe("Loading", render.loading);
+  PubSub.subscribe("RenderWin", render.win);
   PubSub.subscribe("FoundWord", highlightFoundWord);
 }
