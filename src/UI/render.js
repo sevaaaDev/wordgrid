@@ -32,7 +32,13 @@ class Render {
   win() {
     let menu = document.querySelector(".menu");
     menu.classList.remove("hidden");
-    menu.innerText = "WIN";
+    let h1 = document.createElement("h1");
+    let btn = document.createElement("button");
+    h1.innerText = "189s";
+    btn.innerText = "Play Again";
+
+    menu.append(h1);
+    menu.append(btn);
   }
 }
 
@@ -72,7 +78,6 @@ function highlightFoundWord(msg, [initialCoord, finalCoord, direction]) {
       if (iy < fy) iy++;
       if (iy > fy) iy--;
     }
-    // TODO: diagonal
     cell.classList.add("found");
     selectedWord += cell.innerText;
     if (i < f) i++;
