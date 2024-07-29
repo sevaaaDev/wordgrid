@@ -8,8 +8,8 @@ export function initInput() {
 }
 
 export function initSwipeSelect() {
-  let board = document.querySelector(".play-area");
-  board.addEventListener("pointerdown", (e) => {
+  let playArea = document.querySelector(".play-area");
+  playArea.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     let initialCell = e.target;
     let finalCell = e.target;
@@ -66,14 +66,14 @@ export function initSwipeSelect() {
       });
     }
     function submitWord() {
-      board.removeEventListener("pointerover", selectWord);
+      playArea.removeEventListener("pointerover", selectWord);
       removeHighlight();
       // TODO: whats this use for?
       console.log(selectedWord);
       console.log(initialCell);
       console.log(finalCell);
     }
-    board.addEventListener("pointerover", selectWord);
+    playArea.addEventListener("pointerover", selectWord);
     document.addEventListener("pointerup", submitWord, { once: true });
   });
 }
