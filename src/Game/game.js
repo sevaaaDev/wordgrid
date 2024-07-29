@@ -143,4 +143,8 @@ export class Game {
     }
     return false;
   }
+  resetBoard() {
+    this.board = this.generateBoard();
+    this.foundWords = [];
+  }
 }

@@ -128,3 +128,13 @@ export function initBtn() {
     PubSub.publish("StartGame");
   });
 }
+
+function listenPlayAgainBtn() {
+  let btn = document.querySelector(".playAgainBtn");
+  btn.addEventListener("click", () => {
+    PubSub.publish("ResetGame");
+  });
+}
+export function initPlayAgainBtn() {
+  PubSub.subscribe("RenderWin", listenPlayAgainBtn);
+}
