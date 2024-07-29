@@ -133,7 +133,7 @@ export class Game {
     console.log("Found");
     this.checkWin();
     console.log(initial);
-    PubSub.publish("FoundWord", [initial, final, direction]);
+    PubSub.publish("FoundWord", [initial, final, direction, word]);
     return true;
   }
   checkWin() {

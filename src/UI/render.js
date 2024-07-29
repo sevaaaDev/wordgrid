@@ -25,6 +25,7 @@ class Render {
     for (let word of words) {
       let li = document.createElement("li");
       li.innerText = word;
+      li.setAttribute("data-word", word);
       lsOfWords.append(li);
     }
   }
@@ -81,6 +82,11 @@ function highlightFoundWord(msg, [initialCoord, finalCoord, direction]) {
   return selectedWord;
 }
 
+function highlightFoundWordList(msg, [, , , word]) {
+  let wordList = document.querySelector(`li[data-word="${word}"]`);
+  wordList.classList.add("found-list");
+}
+
 let render = new Render();
 
 export function renderInit() {
@@ -89,4 +95,5 @@ export function renderInit() {
   PubSub.subscribe("Loading", render.loading);
   PubSub.subscribe("RenderWin", render.win);
   PubSub.subscribe("FoundWord", highlightFoundWord);
+  PubSub.subscribe("FoundWord", highlightFoundWordList);
 }
