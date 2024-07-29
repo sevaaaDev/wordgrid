@@ -1,10 +1,13 @@
 import PubSub from "pubsub-js";
 
+// WARN: we just change the html structure, might want to make sure everything is okay
 class Render {
   board(msg, boardArray) {
     console.log(boardArray);
-    let board = document.querySelector(".board");
+    let playArea = document.querySelector(".play-area");
+    playArea.innerHTML = "";
     let menu = document.querySelector(".menu");
+    playArea.classList.remove("win");
     menu.classList.add("hidden");
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
@@ -12,7 +15,7 @@ class Render {
         div.setAttribute("data-x", x);
         div.setAttribute("data-y", y);
         div.innerText = boardArray[y][x];
-        board.append(div);
+        playArea.append(div);
       }
     }
   }
@@ -31,11 +34,15 @@ class Render {
   }
   win() {
     let menu = document.querySelector(".menu");
+    let playArea = document.querySelector(".play-area");
+    playArea.classList.add("win");
     menu.classList.remove("hidden");
     let h1 = document.createElement("h1");
     let btn = document.createElement("button");
     h1.innerText = "189s";
     btn.innerText = "Play Again";
+    btn.classList.add("playAgainBtn");
+    menu.innerHTML = "";
 
     menu.append(h1);
     menu.append(btn);

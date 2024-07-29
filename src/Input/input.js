@@ -8,7 +8,7 @@ export function initInput() {
 }
 
 export function initSwipeSelect() {
-  let board = document.querySelector(".board");
+  let board = document.querySelector(".play-area");
   board.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     let initialCell = e.target;
@@ -133,6 +133,7 @@ function listenPlayAgainBtn() {
   let btn = document.querySelector(".playAgainBtn");
   btn.addEventListener("click", () => {
     PubSub.publish("ResetGame");
+    PubSub.publish("StartGame");
   });
 }
 export function initPlayAgainBtn() {

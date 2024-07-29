@@ -63,7 +63,7 @@ export class Game {
     // TODO: overlapping word (feat)
     let i = 0;
     main: while (true) {
-      if (i > 200)
+      if (i > 300)
         throw new RangeError("Looping too much, please tell the dev");
       // TODO: make it so it wont be possible to exceed 100 loop
       // FIX: it exceed 100
@@ -143,7 +143,7 @@ export class Game {
     }
     return false;
   }
-  resetBoard() {
+  reset() {
     this.board = this.generateBoard();
     this.foundWords = [];
   }
