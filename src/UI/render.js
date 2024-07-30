@@ -114,11 +114,17 @@ function highlightFoundWordList(msg, [, , , word]) {
   let wordList = document.querySelector(`li[data-word="${word}"]`);
   wordList.classList.add("found-list");
 }
+function removeAllHighlight() {
+  let cells = document.querySelectorAll(".play-area div.found");
+  if (cells === null) return;
+  cells.forEach((cell) => cell.classList.remove("found"));
+}
 
 let render = new Render();
 
 export function renderInit() {
   PubSub.subscribe("RenderGame", render.fillBoard);
+  PubSub.subscribe("RenderGame", removeAllHighlight);
   PubSub.subscribe("RenderBoard", render.board);
   PubSub.subscribe("RenderList", render.listOfWords);
   PubSub.subscribe("Loading", render.loading);
