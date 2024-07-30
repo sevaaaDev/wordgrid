@@ -40,22 +40,42 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--clr-primary);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.game {
+  grid-column: 2/3;
+  padding: 5rem 0 0 0;
+}
+
 .play-area {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   width: 100%;
 }
+
 .board {
+  background-color: var(--clr-tertiary);
   aspect-ratio: 1;
   width: 500px;
-  border: 1px solid black;
+  border: 3px solid black;
+  border-radius: 8px;
   position: relative;
+  box-shadow: 8px 8px 0 black;
 }
 
 .play-area div {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  border: 2px solid black;
+  font-family: Outfit;
+  font-weight: 700;
+  font-size: 1.2rem;
   /*border: 1px solid black;*/
   display: flex;
   justify-content: center;
@@ -72,7 +92,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
   z-index: 2;
+}
+
+.board .menu h1 {
+  font-family: "Bebas Neue";
+  font-size: 3rem;
+}
+.board .menu button {
+  font-family: "Outfit";
+  font-size: 1.5rem;
+  padding: 0.2rem 1.5rem;
+  background-color: var(--clr-pink);
+  border: 3px solid black;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px black;
+
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
 }
 .board .hidden {
   display: none;
@@ -83,13 +123,28 @@
 }
 
 .selected {
-  background-color: green;
+  background-color: #bbb;
 }
 
 .found {
-  background-color: blue;
+  background-color: var(--clr-light-green);
+}
+
+.list-words {
+  width: 90%;
+  margin: 2rem auto;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  font-family: Outfit;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .found-list {
   text-decoration: line-through;
+  color: var(--clr-dark-green);
 }
