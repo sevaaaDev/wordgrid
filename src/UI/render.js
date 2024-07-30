@@ -25,6 +25,7 @@ class Render {
   }
   listOfWords(msg, words) {
     let lsOfWords = document.querySelector(".list-words");
+    lsOfWords.innerHTML = "";
     for (let word of words) {
       let li = document.createElement("li");
       li.innerText = word;
