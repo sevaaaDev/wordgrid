@@ -21,7 +21,11 @@ class Render {
   }
   loading() {
     let menu = document.querySelector(".menu");
-    menu.innerText = "loading";
+    menu.innerHTML = "";
+    let p = document.createElement("p");
+    p.innerText = "loading";
+    p.classList.add("loading");
+    menu.append(p);
   }
   listOfWords(msg, words) {
     let lsOfWords = document.querySelector(".list-words");
@@ -38,14 +42,15 @@ class Render {
     let playArea = document.querySelector(".play-area");
     playArea.classList.add("win");
     menu.classList.remove("hidden");
-    let h1 = document.createElement("h1");
+    let h2 = document.createElement("h2");
     let btn = document.createElement("button");
-    h1.innerText = "189s";
+    h2.innerText = "189s";
+    h2.classList.add("final-time");
     btn.innerText = "Play Again";
     btn.classList.add("playAgainBtn");
     menu.innerHTML = "";
 
-    menu.append(h1);
+    menu.append(h2);
     menu.append(btn);
   }
 }
