@@ -2,23 +2,33 @@ import PubSub from "pubsub-js";
 
 // WARN: we just change the html structure, might want to make sure everything is okay
 class Render {
-  board(msg, boardArray) {
-    console.log(boardArray);
+  fillBoard(msg, boardArray) {
+    let playArea = document.querySelector(".play-area");
+    let menu = document.querySelector(".menu");
+    menu.classList.add("hidden");
+    playArea.classList.remove("transparent");
+    for (let y = 9; y >= 0; y--) {
+      for (let x = 0; x < 10; x++) {
+        let div = document.querySelector(
+          `.play-area div[data-x="${x}"][data-y="${y}"]`,
+        );
+        div.innerText = boardArray[y][x];
+      }
+    }
+  }
+  board() {
     let playArea = document.querySelector(".play-area");
     playArea.innerHTML = "";
-    let menu = document.querySelector(".menu");
-    playArea.classList.remove("win");
-    menu.classList.add("hidden");
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
         div.setAttribute("data-x", x);
         div.setAttribute("data-y", y);
-        div.innerText = boardArray[y][x];
         playArea.append(div);
       }
     }
   }
+
   loading() {
     let menu = document.querySelector(".menu");
     menu.innerHTML = "";
@@ -40,7 +50,7 @@ class Render {
   win() {
     let menu = document.querySelector(".menu");
     let playArea = document.querySelector(".play-area");
-    playArea.classList.add("win");
+    playArea.classList.add("transparent");
     menu.classList.remove("hidden");
     let h2 = document.createElement("h2");
     let btn = document.createElement("button");
@@ -108,7 +118,8 @@ function highlightFoundWordList(msg, [, , , word]) {
 let render = new Render();
 
 export function renderInit() {
-  PubSub.subscribe("RenderGame", render.board);
+  PubSub.subscribe("RenderGame", render.fillBoard);
+  PubSub.subscribe("RenderBoard", render.board);
   PubSub.subscribe("RenderList", render.listOfWords);
   PubSub.subscribe("Loading", render.loading);
   PubSub.subscribe("RenderWin", render.win);

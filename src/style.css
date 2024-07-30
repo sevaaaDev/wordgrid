@@ -130,7 +130,7 @@ body {
   display: none;
 }
 
-.play-area.win {
+.play-area.transparent {
   opacity: 0.1;
 }
 

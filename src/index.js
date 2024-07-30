@@ -12,3 +12,6 @@ initSwipeSelect();
 PubSub.subscribe("SendAnswer", game.checkWord.bind(game));
 PubSub.subscribe("StartGame", game.init.bind(game));
 PubSub.subscribe("ResetGame", game.reset.bind(game));
+window.addEventListener("load", () => {
+  PubSub.publish("RenderBoard");
+});
