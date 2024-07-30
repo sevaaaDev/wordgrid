@@ -1,3 +1,45 @@
+/* outfit-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/outfit-v11-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* outfit-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./fonts/outfit-v11-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* bebas-neue-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/bebas-neue-v14-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+  --clr-primary: #c1d1f1;
+  --clr-secondary: black;
+  --clr-tertiary: #eee;
+  --clr-pink: #e35bfa;
+  --clr-dark-green: #30930d;
+  --clr-light-green: #4bd669;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .play-area {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
