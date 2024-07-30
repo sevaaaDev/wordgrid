@@ -32,6 +32,8 @@
   --clr-pink: #e35bfa;
   --clr-dark-green: #30930d;
   --clr-light-green: #4bd669;
+  --font-light: Outfit, Arial, sans-serif;
+  --font-heavy: "Bebas Neue", Arial, sans-serif;
 }
 
 * {
@@ -73,7 +75,7 @@ body {
 
 .play-area div {
   border: 2px solid black;
-  font-family: Outfit;
+  font-family: var(--font-light);
   font-weight: 700;
   font-size: 1.2rem;
   /*border: 1px solid black;*/
@@ -97,11 +99,11 @@ body {
 }
 
 .board .menu h1 {
-  font-family: "Bebas Neue";
+  font-family: var(--font-heavy);
   font-size: 3rem;
 }
 .board .menu button {
-  font-family: "Outfit";
+  font-family: var(--font-light);
   font-size: 1.5rem;
   padding: 0.2rem 1.5rem;
   background-color: var(--clr-pink);
@@ -113,6 +115,16 @@ body {
     transform: translate(4px, 4px);
     box-shadow: none;
   }
+}
+
+.final-time {
+  font-family: var(--font-light);
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.loading {
+  font-family: var(--font-light);
 }
 .board .hidden {
   display: none;
@@ -138,7 +150,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  font-family: Outfit;
+  font-family: var(--font-light);
   font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
