@@ -20,7 +20,7 @@ function sanitizeWords(arrayOfWord) {
 function fetchWordsMock() {
   return [
     "over",
-    "Pluto",
+    "pluto",
     "ball",
     "north",
     "hole",
@@ -33,13 +33,13 @@ function fetchWordsMock() {
 }
 
 export async function getWords(array = []) {
-  if (array.length === 10) return array;
-  //let words = await fetchWords();
-  let words = fetchWordsMock();
+  if (array.length === 8) return array;
+  let words = await fetchWords();
+  //let words = fetchWordsMock();
   let sanitizedWords = sanitizeWords(words);
   array = [...array, ...sanitizedWords];
-  if (array.length > 10) {
-    array.splice(10, array.length - 10);
+  if (array.length > 8) {
+    array.splice(8, array.length - 8);
   }
   return getWords(array);
 }
