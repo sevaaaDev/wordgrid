@@ -46,14 +46,12 @@ body {
   background-color: var(--clr-primary);
 }
 
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
 .game {
   grid-column: 2/3;
   padding: 5rem 0 0 0;
+  margin: auto;
+  max-width: 500px;
+  width: 90%;
 }
 
 .play-area {
@@ -66,7 +64,7 @@ body {
 .board {
   background-color: var(--clr-tertiary);
   aspect-ratio: 1;
-  width: 500px;
+  width: 100%;
   border: 3px solid black;
   border-radius: 8px;
   position: relative;
@@ -77,8 +75,7 @@ body {
   border: 2px solid black;
   font-family: var(--font-light);
   font-weight: 700;
-  font-size: 1.2rem;
-  /*border: 1px solid black;*/
+  font-size: clamp(0.9rem, 0.45rem + 2.4vw, 1.2rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,12 +97,12 @@ body {
 
 .board .menu h1 {
   font-family: var(--font-heavy);
-  font-size: 3rem;
+  font-size: clamp(2rem, 0.5rem + 8vw, 3rem);
 }
 .board .menu button {
   font-family: var(--font-light);
-  font-size: 1.5rem;
-  padding: 0.2rem 1.5rem;
+  font-size: clamp(1rem, 0.25rem + 4vw, 1.5rem);
+  padding: 0.2em 1.5em;
   background-color: var(--clr-pink);
   border: 3px solid black;
   border-radius: 4px;
@@ -151,7 +148,7 @@ body {
   justify-content: center;
   gap: 1rem;
   font-family: var(--font-light);
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 0.45rem + 2.4vw, 1.2rem);
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -159,4 +156,14 @@ body {
 .found-list {
   text-decoration: line-through;
   color: var(--clr-dark-green);
+}
+
+@media (min-width: 1500px) {
+  .game {
+    width: 100%;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
