@@ -63,6 +63,7 @@ body {
 
 .board {
   background-color: var(--clr-tertiary);
+  touch-action: none;
   aspect-ratio: 1;
   width: 100%;
   border: 3px solid black;

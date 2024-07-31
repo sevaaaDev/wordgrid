@@ -3,11 +3,13 @@ export function initSwipeSelect() {
   let playArea = document.querySelector(".play-area");
   playArea.addEventListener("pointerdown", (e) => {
     e.preventDefault();
+    e.target.releasePointerCapture(e.pointerId);
     let initialCell = e.target;
     let finalCell = e.target;
     initialCell.classList.add("selected");
     let selectedWord = "";
     function selectWord(e) {
+      e.preventDefault();
       // TODO: awfuly ugly code
       finalCell = e.target;
       let direction = "";
@@ -15,21 +17,11 @@ export function initSwipeSelect() {
       if (finalCell.dataset.x === initialCell.dataset.x) {
         removeHighlight();
         direction = "vertical";
-        selectedWord = highlightSelected(
-          initialCell.dataset,
-          finalCell.dataset,
-          direction,
-        );
       }
       // horizontal
       if (finalCell.dataset.y === initialCell.dataset.y) {
         removeHighlight();
         direction = "horizontal";
-        selectedWord = highlightSelected(
-          initialCell.dataset,
-          finalCell.dataset,
-          direction,
-        );
       }
       // Diagonal
       if (
@@ -38,12 +30,13 @@ export function initSwipeSelect() {
       ) {
         removeHighlight();
         direction = "diagonal";
-        selectedWord = highlightSelected(
-          initialCell.dataset,
-          finalCell.dataset,
-          direction,
-        );
       }
+      console.log(direction);
+      selectedWord = highlightSelected(
+        initialCell.dataset,
+        finalCell.dataset,
+        direction,
+      );
       PubSub.publish("SendAnswer", {
         word: selectedWord,
         initial: initialCell.dataset,
@@ -72,6 +65,7 @@ export function initSwipeSelect() {
 
 function highlightSelected(initialCoord, finalCoord, direction) {
   // TODO: the code is f-ing ugly
+  if (direction === "") return "";
   let s = +initialCoord.y;
   let i = +initialCoord.x;
   let f = +finalCoord.x;
