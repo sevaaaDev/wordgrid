@@ -92,7 +92,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
   z-index: 2;
 }
 
@@ -101,6 +100,7 @@ body {
   font-size: clamp(2rem, 0.5rem + 8vw, 3rem);
 }
 .board .menu button {
+  margin-top: 2rem;
   font-family: var(--font-light);
   font-size: clamp(1rem, 0.25rem + 4vw, 1.5rem);
   padding: 0.2em 1.5em;
@@ -113,6 +113,34 @@ body {
     transform: translate(4px, 4px);
     box-shadow: none;
   }
+}
+
+.second-wrapper {
+  display: flex;
+  font-family: var(--font-light);
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.second-wrapper img {
+  width: 24px;
+}
+
+.bestRecord {
+  font-family: var(--font-light);
+}
+
+.final-time::before {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5rem;
+  background-image: url("icons/stopwatch.svg");
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
 }
 
 .final-time {
@@ -140,6 +168,18 @@ body {
   background-color: var(--clr-light-green);
 }
 
+.green {
+  background-color: var(--clr-light-green);
+}
+.orange {
+  background-color: orange;
+}
+.blue {
+  background-color: cyan;
+}
+.yellow {
+  background-color: yellow;
+}
 .list-words {
   width: 90%;
   margin: 2rem auto;

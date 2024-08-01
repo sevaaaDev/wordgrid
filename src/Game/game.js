@@ -1,9 +1,7 @@
 import { getWords } from "./wordGenerator";
 import PubSub from "pubsub-js";
 
-// TODO: reset feature
 // TODO: timer
-// TODO: word definiton feature
 
 export class Game {
   constructor(words) {
@@ -11,6 +9,9 @@ export class Game {
     this.board = this.generateBoard();
     this.numOfFoundWord = 0;
     this.foundWords = [];
+    this.bestRecord = 0;
+    this.second = 0;
+    this.id;
   }
   init() {
     PubSub.publish("Loading");
@@ -19,6 +20,7 @@ export class Game {
       this.initBoard();
       PubSub.publish("RenderGame", this.board);
       PubSub.publish("RenderList", this.words);
+      this.stopwatch();
     });
   }
 
@@ -33,6 +35,13 @@ export class Game {
   }
 
   availableCoordinate = this.generateAvailableCoordinate();
+  stopwatch() {
+    PubSub.publish("UpdateSecond", this.second);
+    this.id = setInterval(() => {
+      this.second++;
+      PubSub.publish("UpdateSecond", this.second);
+    }, 1000);
+  }
   generateBoard() {
     let array = [];
     for (let y = 0; y < 10; y++) {
@@ -138,13 +147,27 @@ export class Game {
   }
   checkWin() {
     if (this.words.length === 0) {
-      PubSub.publish("RenderWin");
+      clearInterval(this.id);
+      this.updateRecord();
+      PubSub.publish("RenderWin", [this.bestRecord, this.second]);
+      console.log(this.bestRecord);
       return true;
     }
     return false;
   }
+
+  updateRecord() {
+    if (this.bestRecord === 0) {
+      this.bestRecord = this.second;
+      return;
+    }
+    if (this.second < this.bestRecord) {
+      this.bestRecord = this.second;
+    }
+  }
   reset() {
     this.board = this.generateBoard();
     this.foundWords = [];
+    this.second = 0;
   }
 }

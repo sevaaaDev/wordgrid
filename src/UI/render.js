@@ -47,20 +47,24 @@ class Render {
       lsOfWords.append(li);
     }
   }
-  win() {
+  win(msg, [bestRecord, second]) {
     let menu = document.querySelector(".menu");
     let playArea = document.querySelector(".play-area");
     playArea.classList.add("transparent");
     menu.classList.remove("hidden");
     let h2 = document.createElement("h2");
+    let bestRecordTxt = document.createElement("p");
     let btn = document.createElement("button");
-    h2.innerText = "189s";
+    bestRecordTxt.classList.add("bestRecord");
+    bestRecordTxt.innerText = "Best Record: " + bestRecord + "s";
+    h2.innerText = second + "s";
     h2.classList.add("final-time");
     btn.innerText = "Play Again";
     btn.classList.add("playAgainBtn");
     menu.innerHTML = "";
 
     menu.append(h2);
+    menu.append(bestRecordTxt);
     menu.append(btn);
   }
 }
@@ -85,23 +89,28 @@ function highlightFoundWord(msg, [initialCoord, finalCoord, direction]) {
   let selectedWord = "";
   let isLoop = true;
   let limit = 0;
+  let listOfColor = ["green", "blue", "orange", "yellow"];
+  let random = Math.floor(Math.random() * 4);
   while (isLoop && limit <= 100) {
     limit++;
     if (i === f) isLoop = false;
     let cell = document.querySelector(
       `.board div[data-x="${i}"][data-y="${s}"]`,
     );
-    if (direction === "vertical") {
-      cell = document.querySelector(`.board div[data-x="${s}"][data-y="${i}"]`);
-    }
-    if (direction === "diagonal") {
-      cell = document.querySelector(
-        `.board div[data-x="${i}"][data-y="${iy}"]`,
-      );
-      if (iy < fy) iy++;
-      if (iy > fy) iy--;
+    switch (direction) {
+      case "vertical":
+        cell = document.querySelector(`div[data-x="${s}"][data-y="${i}"]`);
+        break;
+      case "diagonal":
+        cell = document.querySelector(
+          `.board div[data-x="${i}"][data-y="${iy}"]`,
+        );
+        if (iy < fy) iy++;
+        if (iy > fy) iy--;
+        break;
     }
     cell.classList.add("found");
+    cell.classList.add(listOfColor[random]);
     selectedWord += cell.innerText;
     if (i < f) i++;
     if (i > f) i--;
@@ -110,14 +119,20 @@ function highlightFoundWord(msg, [initialCoord, finalCoord, direction]) {
   return selectedWord;
 }
 
+function updateSecond(msg, newSecond) {
+  let secDiv = document.querySelector(".second-indicator");
+  secDiv.innerText = newSecond + "s";
+}
+
 function highlightFoundWordList(msg, [, , , word]) {
   let wordList = document.querySelector(`li[data-word="${word}"]`);
   wordList.classList.add("found-list");
 }
+
 function removeAllHighlight() {
   let cells = document.querySelectorAll(".play-area div.found");
   if (cells === null) return;
-  cells.forEach((cell) => cell.classList.remove("found"));
+  cells.forEach((cell) => (cell.className = ""));
 }
 
 let render = new Render();
@@ -131,4 +146,5 @@ export function renderInit() {
   PubSub.subscribe("RenderWin", render.win);
   PubSub.subscribe("FoundWord", highlightFoundWord);
   PubSub.subscribe("FoundWord", highlightFoundWordList);
+  PubSub.subscribe("UpdateSecond", updateSecond);
 }
