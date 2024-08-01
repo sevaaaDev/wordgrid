@@ -32,6 +32,9 @@
   --clr-pink: #e35bfa;
   --clr-dark-green: #30930d;
   --clr-light-green: #4bd669;
+  --clr-blue: #4bbdd6;
+  --clr-orange: #d6854b;
+  --clr-yellow: #c2d64b;
   --font-light: Outfit, Arial, sans-serif;
   --font-heavy: "Bebas Neue", Arial, sans-serif;
 }
@@ -172,13 +175,13 @@ body {
   background-color: var(--clr-light-green);
 }
 .orange {
-  background-color: orange;
+  background-color: var(--clr-orange);
 }
 .blue {
-  background-color: cyan;
+  background-color: var(--clr-blue);
 }
 .yellow {
-  background-color: yellow;
+  background-color: var(--clr-yellow);
 }
 .list-words {
   width: 90%;
@@ -196,7 +199,7 @@ body {
 
 .found-list {
   text-decoration: line-through;
-  color: var(--clr-dark-green);
+  color: #777;
 }
 
 @media (min-width: 1500px) {
