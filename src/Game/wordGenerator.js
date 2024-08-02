@@ -8,11 +8,13 @@ async function fetchWords() {
   return json;
 }
 
-function sanitizeWords(arrayOfWord) {
+function sanitizeWords(arrayOfWord, prevArray) {
   arrayOfWord = arrayOfWord.filter((el) => {
     if (el.length < 7) return true;
     return false;
   });
+  arrayOfWord = new Set([...prevArray, ...arrayOfWord]);
+  arrayOfWord = Array.from(arrayOfWord);
   console.log(arrayOfWord);
   return arrayOfWord;
 }
@@ -20,28 +22,27 @@ function sanitizeWords(arrayOfWord) {
 function fetchWordsMock() {
   return [
     "over",
-    "pluto",
+    "austria",
+    "linux",
     "ball",
+    "pluto",
     "north",
     "hole",
     "planet",
-    "globe",
-    "lost",
-    "break",
-    "world",
+    "pluto",
+    "planet",
+    "ash",
   ];
 }
 
 export async function getWords(array = []) {
   if (array.length === 8) return array;
-  let words = await fetchWords();
-  //let words = fetchWordsMock();
-  let sanitizedWords = sanitizeWords(words);
-  array = [...array, ...sanitizedWords];
+  //let words = await fetchWords();
+  let words = fetchWordsMock();
+  let sanitizedWords = sanitizeWords(words, array);
+  array = sanitizedWords;
   if (array.length > 8) {
     array.splice(8, array.length - 8);
   }
   return getWords(array);
 }
-
-// TODO: refactor the function
