@@ -89,8 +89,8 @@ function highlightFoundWord(msg, [initialCoord, finalCoord, direction]) {
   let selectedWord = "";
   let isLoop = true;
   let limit = 0;
-  let listOfColor = ["green", "blue", "orange", "yellow"];
-  let random = Math.floor(Math.random() * 4);
+  let listOfColor = ["green", "blue", "orange"];
+  let random = Math.floor(Math.random() * 3);
   while (isLoop && limit <= 100) {
     limit++;
     if (i === f) isLoop = false;

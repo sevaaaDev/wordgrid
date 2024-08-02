@@ -181,9 +181,6 @@ body {
 .blue {
   background-color: var(--clr-blue);
 }
-.yellow {
-  background-color: var(--clr-yellow);
-}
 .list-words {
   width: 90%;
   margin: 2rem auto;
