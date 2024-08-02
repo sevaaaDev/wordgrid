@@ -79,7 +79,7 @@ body {
   border: 2px solid black;
   font-family: var(--font-light);
   font-weight: 700;
-  font-size: clamp(0.9rem, 0.45rem + 2.4vw, 1.2rem);
+  font-size: clamp(0.7rem, -0.4667rem + 5.3333vw, 1.2rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,6 +129,10 @@ body {
 
 .second-wrapper img {
   width: 24px;
+}
+
+.second-indicator {
+  font-size: 1.2rem;
 }
 
 .bestRecord {
