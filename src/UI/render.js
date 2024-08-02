@@ -47,7 +47,7 @@ class Render {
       lsOfWords.append(li);
     }
   }
-  win(msg, [bestRecord, second]) {
+  win(msg, [bestRecord, score]) {
     let menu = document.querySelector(".menu");
     let playArea = document.querySelector(".play-area");
     playArea.classList.add("transparent");
@@ -57,7 +57,7 @@ class Render {
     let btn = document.createElement("button");
     bestRecordTxt.classList.add("bestRecord");
     bestRecordTxt.innerText = "Best Record: " + bestRecord + "s";
-    h2.innerText = second + "s";
+    h2.innerText = score + "s";
     h2.classList.add("final-time");
     btn.innerText = "Play Again";
     btn.classList.add("playAgainBtn");

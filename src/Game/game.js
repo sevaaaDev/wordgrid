@@ -1,8 +1,6 @@
 import { getWords } from "./wordGenerator";
 import PubSub from "pubsub-js";
 
-// TODO: timer
-
 export class Game {
   constructor(words) {
     this.words = words;
@@ -10,7 +8,7 @@ export class Game {
     this.numOfFoundWord = 0;
     this.foundWords = [];
     this.bestRecord = 0;
-    this.second = 0;
+    this.score = 0;
     this.id;
   }
   init() {
@@ -36,10 +34,10 @@ export class Game {
 
   availableCoordinate = this.generateAvailableCoordinate();
   stopwatch() {
-    PubSub.publish("UpdateSecond", this.second);
+    PubSub.publish("UpdateSecond", this.score);
     this.id = setInterval(() => {
-      this.second++;
-      PubSub.publish("UpdateSecond", this.second);
+      this.score++;
+      PubSub.publish("UpdateSecond", this.score);
     }, 1000);
   }
   generateBoard() {
@@ -149,7 +147,7 @@ export class Game {
     if (this.words.length === 0) {
       clearInterval(this.id);
       this.updateRecord();
-      PubSub.publish("RenderWin", [this.bestRecord, this.second]);
+      PubSub.publish("RenderWin", [this.bestRecord, this.score]);
       console.log(this.bestRecord);
       return true;
     }
@@ -158,16 +156,16 @@ export class Game {
 
   updateRecord() {
     if (this.bestRecord === 0) {
-      this.bestRecord = this.second;
+      this.bestRecord = this.score;
       return;
     }
-    if (this.second < this.bestRecord) {
-      this.bestRecord = this.second;
+    if (this.score < this.bestRecord) {
+      this.bestRecord = this.score;
     }
   }
   reset() {
     this.board = this.generateBoard();
     this.foundWords = [];
-    this.second = 0;
+    this.score = 0;
   }
 }
