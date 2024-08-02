@@ -12,6 +12,7 @@ export class Game {
     this.id;
   }
   init() {
+    this.getFromLocalStorage();
     PubSub.publish("Loading");
     getWords().then((res) => {
       this.words = res;
@@ -30,6 +31,17 @@ export class Game {
       if (i > 3) i = 0;
     }
     this.fillBoard();
+  }
+
+  getFromLocalStorage() {
+    console.log(localStorage.length);
+    if (localStorage.length !== 0) {
+      this.bestRecord = localStorage.getItem("record");
+    }
+  }
+
+  setLocalStorage() {
+    localStorage.setItem("record", this.bestRecord);
   }
 
   availableCoordinate = this.generateAvailableCoordinate();
@@ -155,13 +167,10 @@ export class Game {
   }
 
   updateRecord() {
-    if (this.bestRecord === 0) {
-      this.bestRecord = this.score;
-      return;
-    }
-    if (this.score < this.bestRecord) {
+    if (this.bestRecord === 0 || this.score < this.bestRecord) {
       this.bestRecord = this.score;
     }
+    this.setLocalStorage();
   }
   reset() {
     this.board = this.generateBoard();
