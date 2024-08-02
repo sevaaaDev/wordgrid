@@ -133,6 +133,7 @@ body {
 
 .bestRecord {
   font-family: var(--font-light);
+  font-size: clamp(0.9rem, 0.45rem + 2.4vw, 1.2rem);
 }
 
 .final-time::before {
