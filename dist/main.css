@@ -1,0 +1,216 @@
+/* outfit-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  src: url(8f48df74b0b71f7810ab.woff2) format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* outfit-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  src: url(016948b6e141358baa7b.woff2) format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* bebas-neue-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  src: url(4352f3c0f3586c850c24.woff2) format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+  --clr-primary: #c1d1f1;
+  --clr-secondary: black;
+  --clr-tertiary: #eee;
+  --clr-pink: #e35bfa;
+  --clr-dark-green: #30930d;
+  --clr-light-green: #4bd669;
+  --clr-blue: #4bbdd6;
+  --clr-orange: #d6854b;
+  --clr-yellow: #c2d64b;
+  --font-light: Outfit, Arial, sans-serif;
+  --font-heavy: "Bebas Neue", Arial, sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--clr-primary);
+}
+
+.game {
+  grid-column: 2/3;
+  padding: 5rem 0 0 0;
+  margin: auto;
+  max-width: 500px;
+  width: 90%;
+}
+
+.play-area {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 100%;
+}
+
+.board {
+  background-color: var(--clr-tertiary);
+  touch-action: none;
+  aspect-ratio: 1;
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 8px 8px 0 black;
+}
+
+.play-area div {
+  border: 2px solid black;
+  font-family: var(--font-light);
+  font-weight: 700;
+  font-size: clamp(0.7rem, -0.4667rem + 5.3333vw, 1.2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  aspect-ratio: 1;
+}
+
+.board .menu {
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.board .menu h1 {
+  font-family: var(--font-heavy);
+  font-size: clamp(2rem, 0.5rem + 8vw, 3rem);
+}
+.board .menu button {
+  margin-top: 2rem;
+  font-family: var(--font-light);
+  font-size: clamp(1rem, 0.25rem + 4vw, 1.5rem);
+  padding: 0.2em 1.5em;
+  background-color: var(--clr-pink);
+  border: 3px solid black;
+  border-radius: 6px;
+  box-shadow: 6px 6px 0px black;
+
+  &:active {
+    transform: translate(6px, 6px);
+    box-shadow: none;
+  }
+}
+
+.second-wrapper {
+  display: flex;
+  font-family: var(--font-light);
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.second-wrapper img {
+  width: 24px;
+}
+
+.second-indicator {
+  font-size: 1.2rem;
+}
+
+.bestRecord {
+  font-family: var(--font-light);
+  font-size: clamp(0.9rem, 0.45rem + 2.4vw, 1.2rem);
+}
+
+.final-time::before {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5rem;
+  background-image: url(19f847132fc64f07eddd.svg);
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+}
+
+.final-time {
+  font-family: var(--font-light);
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.loading {
+  font-family: var(--font-light);
+}
+.board .hidden {
+  display: none;
+}
+
+.play-area.transparent {
+  opacity: 0.1;
+}
+
+.selected {
+  background-color: #bbb;
+}
+
+.found {
+  background-color: var(--clr-light-green);
+}
+
+.green {
+  background-color: var(--clr-light-green);
+}
+.orange {
+  background-color: var(--clr-orange);
+}
+.blue {
+  background-color: var(--clr-blue);
+}
+.list-words {
+  width: 90%;
+  margin: 2rem auto;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  font-family: var(--font-light);
+  font-size: clamp(0.9rem, 0.45rem + 2.4vw, 1.2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.found-list {
+  text-decoration: line-through;
+  color: #777;
+}
+
+@media (min-width: 1500px) {
+  .game {
+    width: 100%;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
