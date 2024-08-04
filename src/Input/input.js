@@ -12,16 +12,16 @@ export function initSwipeSelect() {
       e.preventDefault();
       // TODO: awfuly ugly code
       finalCell = e.target;
-      let direction = "";
+      let orientation = "";
       // vertical
       if (finalCell.dataset.x === initialCell.dataset.x) {
         removeHighlight();
-        direction = "vertical";
+        orientation = "vertical";
       }
       // horizontal
       if (finalCell.dataset.y === initialCell.dataset.y) {
         removeHighlight();
-        direction = "horizontal";
+        orientation = "horizontal";
       }
       // Diagonal
       if (
@@ -29,19 +29,19 @@ export function initSwipeSelect() {
         Math.abs(finalCell.dataset.x - initialCell.dataset.x)
       ) {
         removeHighlight();
-        direction = "diagonal";
+        orientation = "diagonal";
       }
-      console.log(direction);
+      console.log(orientation);
       selectedWord = highlightSelected(
         initialCell.dataset,
         finalCell.dataset,
-        direction,
+        orientation,
       );
       PubSub.publish("SendAnswer", {
         word: selectedWord,
         initial: initialCell.dataset,
         final: finalCell.dataset,
-        direction,
+        orientation,
       });
     }
     function removeHighlight() {
@@ -63,19 +63,19 @@ export function initSwipeSelect() {
   });
 }
 
-function highlightSelected(initialCoord, finalCoord, direction) {
+function highlightSelected(initialCoord, finalCoord, orientation) {
   // TODO: the code is f-ing ugly
-  if (direction === "") return "";
+  if (orientation === "") return "";
   let s = +initialCoord.y;
   let i = +initialCoord.x;
   let f = +finalCoord.x;
   let iy, fy;
-  if (direction === "vertical") {
+  if (orientation === "vertical") {
     s = +initialCoord.x;
     i = +initialCoord.y;
     f = +finalCoord.y;
   }
-  if (direction === "diagonal") {
+  if (orientation === "diagonal") {
     iy = +initialCoord.y;
     fy = +finalCoord.y;
   }
@@ -88,10 +88,10 @@ function highlightSelected(initialCoord, finalCoord, direction) {
     let cell = document.querySelector(
       `.board div[data-x="${i}"][data-y="${s}"]`,
     );
-    if (direction === "vertical") {
+    if (orientation === "vertical") {
       cell = document.querySelector(`.board div[data-x="${s}"][data-y="${i}"]`);
     }
-    if (direction === "diagonal") {
+    if (orientation === "diagonal") {
       cell = document.querySelector(
         `.board div[data-x="${i}"][data-y="${iy}"]`,
       );

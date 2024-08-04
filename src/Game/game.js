@@ -26,8 +26,8 @@ export class Game {
   initBoard() {
     let i = 0;
     for (let word of this.words) {
-      let directions = ["vertical", "diagonal", "horizontal"];
-      this.placeWord(word, directions[i++]);
+      let orientation = ["vertical", "diagonal", "horizontal"];
+      this.placeWord(word, orientation[i++]);
       if (i > 3) i = 0;
     }
     this.fillBoard();
@@ -78,7 +78,7 @@ export class Game {
   #getRandom() {
     return Math.floor(Math.random() * 9);
   }
-  getCoordinate(word, direction) {
+  getCoordinate(word, orientation) {
     // TODO: overlapping word (feat)
     let i = 0;
     main: while (true) {
@@ -89,45 +89,55 @@ export class Game {
       i++;
       let x = this.#getRandom();
       let y = this.#getRandom();
+      //if (typeof this.board[y][x] === "string") {
+      //  if (word.inludes(this.board[y][x])) {
+      //    // find the letter
+      //    // divide word into to array
+      //    let mid = word.indexOf(this.board[y][x]);
+      //    let wordArray = word.split("");
+      //    let array1 = wordArray.splice(0, mid);
+      //    let array2 = wordArray.splice(1, wordArray.length - 1);
+      //  }
+      //}
       if (this.board[y][x] !== null) continue main;
 
       placing: for (let i = 0; i < word.length; i++) {
         let inc = i + x;
-        if (direction === "diagonal") {
+        if (orientation === "diagonal") {
           let inc2 = y - i;
           if (inc2 < 0 || this.board[inc2][inc] !== null) {
-            direction = "vertical";
+            orientation = "vertical";
             continue main;
           }
           continue placing;
         }
-        if (direction === "vertical") {
+        if (orientation === "vertical") {
           inc = y - i;
           if (inc < 0 || this.board[inc][x] !== null) {
-            direction = "horizontal";
+            orientation = "horizontal";
             continue main;
           }
           continue placing;
         }
         if (this.board[y][inc] !== null) {
-          direction = "diagonal";
+          orientation = "diagonal";
           continue main;
         }
       }
-      return [x, y, direction];
+      return [x, y, orientation];
     }
   }
 
-  placeWord(word, direction) {
-    let [x, y, newDirection] = this.getCoordinate(word, direction);
-    direction = newDirection;
+  placeWord(word, orientation) {
+    let [x, y, newOrientation] = this.getCoordinate(word, orientation);
+    orientation = newOrientation;
     // TODO: the word sometime is too close to eachother, maybe add restriction so they need too be a few cell away
     for (let letter of word) {
-      if (direction === "diagonal") {
+      if (orientation === "diagonal") {
         this.board[y--][x++] = letter;
         continue;
       }
-      if (direction === "vertical") {
+      if (orientation === "vertical") {
         this.board[y--][x] = letter;
         continue;
       }
@@ -143,7 +153,7 @@ export class Game {
       }
     }
   }
-  checkWord(msg, { word, initial, final, direction }) {
+  checkWord(msg, { word, initial, final, orientation }) {
     word = word.toLowerCase();
     let index = this.words.indexOf(word);
     if (index === -1) return false;
@@ -152,7 +162,7 @@ export class Game {
     console.log("Found");
     this.checkWin();
     console.log(initial);
-    PubSub.publish("FoundWord", [initial, final, direction, word]);
+    PubSub.publish("FoundWord", [initial, final, orientation, word]);
     return true;
   }
   checkWin() {
