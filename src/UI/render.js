@@ -71,8 +71,6 @@ class Render {
 
 function highlightFoundWord(msg, [initialCoord, finalCoord, direction]) {
   // TODO: the code is f-ing ugly
-  console.log(initialCoord);
-  console.log(direction);
   let s = +initialCoord.y;
   let i = +initialCoord.x;
   let f = +finalCoord.x;

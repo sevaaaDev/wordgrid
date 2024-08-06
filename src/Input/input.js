@@ -31,7 +31,6 @@ export function initSwipeSelect() {
         removeHighlight();
         orientation = "diagonal";
       }
-      console.log(orientation);
       selectedWord = highlightSelected(
         initialCell.dataset,
         finalCell.dataset,
@@ -54,9 +53,6 @@ export function initSwipeSelect() {
       playArea.removeEventListener("pointerover", selectWord);
       removeHighlight();
       // TODO: whats this use for?
-      console.log(selectedWord);
-      console.log(initialCell);
-      console.log(finalCell);
     }
     playArea.addEventListener("pointerover", selectWord);
     document.addEventListener("pointerup", submitWord, { once: true });

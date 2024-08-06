@@ -4,7 +4,6 @@ async function fetchWords() {
   );
   let json = await response.json();
 
-  console.log("call");
   return json;
 }
 
@@ -15,7 +14,6 @@ function sanitizeWords(arrayOfWord, prevArray) {
   });
   arrayOfWord = new Set([...prevArray, ...arrayOfWord]);
   arrayOfWord = Array.from(arrayOfWord);
-  console.log(arrayOfWord);
   return arrayOfWord;
 }
 
@@ -37,8 +35,8 @@ function fetchWordsMock() {
 
 export async function getWords(array = []) {
   if (array.length === 8) return array;
-  //let words = await fetchWords();
-  let words = fetchWordsMock();
+  let words = await fetchWords();
+  //let words = fetchWordsMock();
   let sanitizedWords = sanitizeWords(words, array);
   array = sanitizedWords;
   if (array.length > 8) {

@@ -159,9 +159,7 @@ export class Game {
     if (index === -1) return false;
     let foundWord = this.words.splice(index, 1);
     this.foundWords.push(foundWord);
-    console.log("Found");
     this.checkWin();
-    console.log(initial);
     PubSub.publish("FoundWord", [initial, final, orientation, word]);
     return true;
   }
@@ -170,7 +168,6 @@ export class Game {
       clearInterval(this.id);
       this.updateRecord();
       PubSub.publish("RenderWin", [this.bestRecord, this.score]);
-      console.log(this.bestRecord);
       return true;
     }
     return false;
