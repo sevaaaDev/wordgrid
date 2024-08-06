@@ -16,7 +16,8 @@ export class Game {
     PubSub.publish("Loading");
     getWords().then((res) => {
       this.words = res;
-      this.initBoard();
+      let err = this.initBoard();
+      if (err) return;
       PubSub.publish("RenderGame", this.board);
       PubSub.publish("RenderList", this.words);
       this.stopwatch();
@@ -27,7 +28,8 @@ export class Game {
     let i = 0;
     for (let word of this.words) {
       let orientation = ["vertical", "diagonal", "horizontal"];
-      this.placeWord(word, orientation[i++]);
+      let err = this.placeWord(word, orientation[i++]);
+      if (err) return err;
       if (i > 3) i = 0;
     }
     this.fillBoard();
@@ -85,23 +87,17 @@ export class Game {
     // TODO: overlapping word (feat)
     let i = 0;
     main: while (true) {
-      if (i > 500)
-        throw new RangeError("Looping too much, please tell the dev");
+      if (i > 500) {
+        this.reset();
+        this.init();
+        //throw new RangeError("Looping too much, please tell the dev");
+        return ["", "", "", true];
+      }
       // TODO: make it so it wont be possible to exceed 100 loop
       // FIX: it exceed 100
       i++;
       let x = this.#getRandom();
       let y = this.#getRandom();
-      //if (typeof this.board[y][x] === "string") {
-      //  if (word.inludes(this.board[y][x])) {
-      //    // find the letter
-      //    // divide word into to array
-      //    let mid = word.indexOf(this.board[y][x]);
-      //    let wordArray = word.split("");
-      //    let array1 = wordArray.splice(0, mid);
-      //    let array2 = wordArray.splice(1, wordArray.length - 1);
-      //  }
-      //}
       if (this.board[y][x] !== null) continue main;
 
       placing: for (let i = 0; i < word.length; i++) {
@@ -127,12 +123,13 @@ export class Game {
           continue main;
         }
       }
-      return [x, y, orientation];
+      return [x, y, orientation, false];
     }
   }
 
   placeWord(word, orientation) {
-    let [x, y, newOrientation] = this.getCoordinate(word, orientation);
+    let [x, y, newOrientation, err] = this.getCoordinate(word, orientation);
+    if (err) return err;
     orientation = newOrientation;
     // TODO: the word sometime is too close to eachother, maybe add restriction so they need too be a few cell away
     for (let letter of word) {
