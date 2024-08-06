@@ -34,10 +34,13 @@ export class Game {
   }
 
   getFromLocalStorage() {
-    console.log(localStorage.length);
-    if (localStorage.length !== 0) {
-      this.bestRecord = localStorage.getItem("record");
+    let item = localStorage.getItem("record");
+    if (item === null) return;
+    if (item === "null") {
+      localStorage.removeItem("record");
+      return;
     }
+    this.bestRecord = item;
   }
 
   setLocalStorage() {
